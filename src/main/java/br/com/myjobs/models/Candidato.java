@@ -1,27 +1,34 @@
 package br.com.myjobs.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@Entity
 @Getter
 @Setter
-@Entity(name = "candidato")
-@Table(name = "candidatos")
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String nome;
-    private String email;
-    private String telefone;
+    @Column(unique = true)
     private String cpf;
+    @NotEmpty
+    private String nomeCandidato;
+    @NotEmpty
+    private String email;
+    @NotEmpty
+    private String telefone;
 
-    @Embedded
-    private Endereco endereco;
+
+    @ManyToOne
+    private Vaga vaga;
+
+
 
 }
